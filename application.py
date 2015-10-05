@@ -8,9 +8,11 @@ COUNTRI_AND_CAP = {}
 def Clear():
     os.system("cls")
 def Ordered():
+    print """===================================="""
+    print """|Countries                  Capitals|"""
     ordered = OrderedDict(sorted(COUNTRI_AND_CAP.items(), key=lambda x: x[1:]))
     for key, value in ordered.items():
-        print key, value
+        print key + "             " + value
     raw_input("Press Enter to Continue")    
     Clear()
 def CountriesCapitalLists():
@@ -49,12 +51,28 @@ def Questions():
         Questions()
 def COUNTRY():
     os.system("cls")
-    Count = raw_input(">>>Please insert a Country<<<\n")
-    Count = Count.lower()
-    capi = raw_input(">>>Please insert a Capital<<<\n")
-    capi = capi.lower()
+    Coun = True
+    while Coun == True:
+        Count = raw_input(">>>Please insert a Country<<<\n")
+        Count = str(Count).lower()
+        if  Count.isalpha() == True or " " in Count:
+            Coun = False
+        else:
+            print "i don't understand the instruction"
+            Coun = True
+            raw_input("Press Enter to Continue")
+    cap= True       
+    while cap == True:        
+        capi = raw_input(">>>Please insert a Capital<<<\n")
+        capi = capi.lower()
+        if  str(capi).isalpha() == True or " " in capi:
+            cap = False
+        else:
+            print "i don't understando the instruction"
+            cap = True   
     COUNTRI_AND_CAP[Count] = capi
     Questions()
+    Clear()
     MENU()
 def EXIT():
     print "I hope you like it.\n See you again n.n"
