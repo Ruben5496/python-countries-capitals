@@ -7,8 +7,9 @@ CAP = []
 COUNTRI_AND_CAP = {}
 def Clear():
     os.system("cls")
+    os.system("clear")
 def Ordered():
-    print """===================================="""
+    print """====================================="""
     print """|Countries                  Capitals|"""
     ordered = OrderedDict(sorted(COUNTRI_AND_CAP.items(), key=lambda x: x[1:]))
     for key, value in ordered.items():
@@ -42,6 +43,7 @@ def Questions():
     quest = quest.lower()
     if quest == "y" or quest == "yes":
         os.system("cls")
+        os.system("clear")
         COUNTRY()
         CAPITALS()
     elif quest == "n" or quest == "no":
@@ -51,6 +53,7 @@ def Questions():
         Questions()
 def COUNTRY():
     os.system("cls")
+    os.system("clear")
     Coun = True
     while Coun == True:
         Count = raw_input(">>>Please insert a Country<<<\n")
@@ -72,7 +75,6 @@ def COUNTRY():
             cap = True   
     COUNTRI_AND_CAP[Count] = capi
     Questions()
-    Clear()
     MENU()
 def EXIT():
     print "I hope you like it.\n See you again n.n"
@@ -81,6 +83,7 @@ def EXIT():
 def MENU():
     while True:
         os.system("cls")
+        os.system("clear")
         print "Welcome\n"
         print "#1 Insert a Country"
         print "#2 Countries"
@@ -108,5 +111,6 @@ def MENU():
         else:
             print "***Fatal Error***\n I don't understand the Instruction"
             raw_input("Press enter to insert another option\n")
-            os.system("cls")    
+            os.system("cls")
+            os.system("clear")    
 MENU()
