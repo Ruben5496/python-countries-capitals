@@ -7,24 +7,25 @@ COUNTRI_AND_CAP = {}
 def Clear():
     os.system("cls")
 def CountriesCapitalLists():
-    print ">>>Countries and Capital Lists:<<< \n"
+    print "       >>>Countries and Capital Lists:<<< \n"
     for key in COUNTRI_AND_CAP:
-        print key, COUNTRI_AND_CAP[key] + "\n" 
-    time.sleep(2)
+        print key +"     " + COUNTRI_AND_CAP[key] + "\n" 
+    raw_input("Press enter to Continue")
     MENU()
     Clear()    
 def OnlyCount():
-    print ">>>COUNTRIES:<<< \n"
+    print "     >>>COUNTRIES<<< \n"
     for key in COUNTRI_AND_CAP:
         print key + "\n" 
-    time.sleep(2)
+
+    raw_input("Press enter to Continue")
     MENU()
     Clear()
 def OnlyCaps():
-    print ">>>Capitals<<<\n"
+    print "     >>>Capitals<<<\n"
     for i in COUNTRI_AND_CAP:
         print COUNTRI_AND_CAP[i] + "\n" 
-    time.sleep(2)
+    raw_input("Press Enter to Continue")
     MENU()
     Clear()
 def Questions():
