@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import os
 import sys
 import time
@@ -6,13 +7,19 @@ CAP = []
 COUNTRI_AND_CAP = {}
 def Clear():
     os.system("cls")
+def Ordered():
+    ordered = OrderedDict(sorted(COUNTRI_AND_CAP.items(), key=lambda x: x[1:]))
+    for key, value in ordered.items():
+        print key, value
+    raw_input("Press Enter to Continue")    
+    Clear()
 def CountriesCapitalLists():
     print "       >>>Countries and Capital Lists:<<< \n"
     for key in COUNTRI_AND_CAP:
         print key +"     " + COUNTRI_AND_CAP[key] + "\n" 
-    raw_input("Press enter to Continue")
+    raw_input("Press enter to Continue")   
     MENU()
-    Clear()    
+    Clear()
 def OnlyCount():
     print "     >>>COUNTRIES<<< \n"
     for key in COUNTRI_AND_CAP:
@@ -43,11 +50,9 @@ def Questions():
 def COUNTRY():
     os.system("cls")
     Count = raw_input(">>>Please insert a Country<<<\n")
-    Count = Count.title()
-
+    Count = Count.lower()
     capi = raw_input(">>>Please insert a Capital<<<\n")
-    capi = capi.title()
-
+    capi = capi.lower()
     COUNTRI_AND_CAP[Count] = capi
     Questions()
     MENU()
