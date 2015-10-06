@@ -2,12 +2,35 @@ from collections import OrderedDict
 import os
 import sys
 import time
+import socket
+import smtplib
 COUNTRI = []
 CAP = []
 COUNTRI_AND_CAP = {}
 def Clear():
     os.system("cls")
     os.system("clear")
+"""def Mail(subject, text):
+    print "Do you want to send this in a E-MAIL?"
+    email = "@".join([os.getenv("LOGNAME"), socket.gethostname()])
+    msg = ("From: {0}\nTo: {0}\nSubject: {1}\n{2}".format(email, subject, text))
+    server = smtplib.SMTP("localhost")
+    server.sendmail(email, email, msg)
+    Clear()
+    return
+def main():
+    """Main section"""
+
+    send_mail_local("Comprobando el envío de correo localmente",
+                    "Si puedes leer esto, tu servidor local SMTP está OK")
+
+    print("Comprueba el correo en tu buzón local {0}\nEste normalmente se "
+          "encuentra situado en /var/mail/{1}".
+          format("@".join([os.getenv("LOGNAME"), socket.gethostname()]),
+                 os.getenv("LOGNAME")))
+
+    if __name__ == "__main__":
+    main()"""
 def Ordered():
     print """====================================="""
     print """|Countries                  Capitals|"""
@@ -57,7 +80,7 @@ def COUNTRY():
     Coun = True
     while Coun == True:
         Count = raw_input(">>>Please insert a Country<<<\n")
-        Count = str(Count).lower()
+        Count = str(Count).title()
         if  Count.isalpha() == True or " " in Count:
             Coun = False
         else:
@@ -67,7 +90,7 @@ def COUNTRY():
     cap= True       
     while cap == True:        
         capi = raw_input(">>>Please insert a Capital<<<\n")
-        capi = capi.lower()
+        capi = capi.title()
         if  str(capi).isalpha() == True or " " in capi:
             cap = False
         else:
@@ -84,7 +107,9 @@ def MENU():
     while True:
         os.system("cls")
         os.system("clear")
-        print "Welcome\n"
+        print """========================================"""
+        print """|-------COUNTRIES AND CAPITALS---------|"""
+        print """========================================"""
         print "#1 Insert a Country"
         print "#2 Countries"
         print "#3 Capitals"
@@ -105,7 +130,7 @@ def MENU():
         elif DATA == "5":
             Ordered()
         elif DATA == "6":
-            mail()
+            Mail()
         elif DATA == "7" or DATA == "exit":
             EXIT()
         else:
