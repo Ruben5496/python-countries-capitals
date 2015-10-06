@@ -1,56 +1,70 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from collections import OrderedDict
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 import os
 import sys
 import time
-import socket
 import smtplib
+import getpass
 COUNTRI = []
 CAP = []
 COUNTRI_AND_CAP = {}
+def email():
+   print "Send email by gmail"
+
+   fromaddr = raw_input("Count from gmail: ")
+   password = getpass.getpass("Password: ")
+   toaddrs = raw_input("to: ")
+   #asunto = raw_input("subject, from message: ")
+   body = "Countries\t===========\tCapitals\n"
+   for msg in COUNTRI_AND_CAP:
+        body = body + str(msg).center(20) +str(COUNTRI_AND_CAP[msg]).center(20) + "\n" 
+   msg = MIMEMultipart()
+   msg['From'] = fromaddr #This saves the mail of the sender
+   msg['To'] = toaddrs  #This saves the mail of the receiver
+   msg['Subject'] = "Countries and Capitals"  #This saves the subject
+   msg.attach(MIMEText(body, 'plain')) #This saves the message
+
+   try:
+       server = smtplib.SMTP('smtp.gmail.com:587')
+       server.starttls()
+       server.login(fromaddr,password)
+       text = msg.as_string()
+       server.sendmail(fromaddr, toaddrs, text)
+       server.quit()
+       print "yes"
+       raw_input("press enter")
+   except ValueError:
+       print "No se envio nada"
+
 def Clear():
     os.system("cls")
     os.system("clear")
-"""def Mail(subject, text):
-    print "Do you want to send this in a E-MAIL?"
-    email = "@".join([os.getenv("LOGNAME"), socket.gethostname()])
-    msg = ("From: {0}\nTo: {0}\nSubject: {1}\n{2}".format(email, subject, text))
-    server = smtplib.SMTP("localhost")
-    server.sendmail(email, email, msg)
-    Clear()
-    return
-def main():
-    """Main section"""
-
-    send_mail_local("Comprobando el envío de correo localmente",
-                    "Si puedes leer esto, tu servidor local SMTP está OK")
-
-    print("Comprueba el correo en tu buzón local {0}\nEste normalmente se "
-          "encuentra situado en /var/mail/{1}".
-          format("@".join([os.getenv("LOGNAME"), socket.gethostname()]),
-                 os.getenv("LOGNAME")))
-
-    if __name__ == "__main__":
-    main()"""
 def Ordered():
-    print """====================================="""
-    print """|Countries                  Capitals|"""
+    Clear()
+    print """========================================="""
+    print """|-----Countries----|--------Capitals----|"""
+    print """|__________________|____________________|"""
+    print """|                  |                    |"""   
     ordered = OrderedDict(sorted(COUNTRI_AND_CAP.items(), key=lambda x: x[1:]))
     for key, value in ordered.items():
-        print key + "             " + value
+       print key.center(20) + value.center(10)
     raw_input("Press Enter to Continue")    
     Clear()
 def CountriesCapitalLists():
-    print "       >>>Countries and Capital Lists:<<< \n"
+    print ">>>Countries and Capital Lists:<<< \n"
+    
     for key in COUNTRI_AND_CAP:
-        print key +"     " + COUNTRI_AND_CAP[key] + "\n" 
+        print key.center(20), COUNTRI_AND_CAP[key] + "\n" 
     raw_input("Press enter to Continue")   
     MENU()
     Clear()
 def OnlyCount():
     print "     >>>COUNTRIES<<< \n"
     for key in COUNTRI_AND_CAP:
-        print key + "\n" 
-
+        print key.center(10)
     raw_input("Press enter to Continue")
     MENU()
     Clear()
@@ -81,21 +95,25 @@ def COUNTRY():
     while Coun == True:
         Count = raw_input(">>>Please insert a Country<<<\n")
         Count = str(Count).title()
-        if  Count.isalpha() == True or " " in Count:
-            Coun = False
-        else:
-            print "i don't understand the instruction"
-            Coun = True
-            raw_input("Press Enter to Continue")
+        for char in Count:
+            if  char.isdigit() == False:
+                Coun = False
+            else:
+                print "i don't understand the instruction"
+                Coun = True
+                raw_input("Press Enter to Continue")
+                break
     cap= True       
     while cap == True:        
         capi = raw_input(">>>Please insert a Capital<<<\n")
         capi = capi.title()
-        if  str(capi).isalpha() == True or " " in capi:
-            cap = False
-        else:
-            print "i don't understando the instruction"
-            cap = True   
+        for char in capi:
+            if  char.isdigit() == False:
+                cap = False
+            else:
+                print "i don't understando the instruction"
+                cap = True
+                break
     COUNTRI_AND_CAP[Count] = capi
     Questions()
     MENU()
@@ -125,12 +143,12 @@ def MENU():
             OnlyCount()
         elif DATA == "3" or DATA == "Capitals":
             OnlyCaps()
-        elif DATA == "4":
+        elif DATA == "4" or DATA == "All":
             CountriesCapitalLists()
-        elif DATA == "5":
+        elif DATA == "5" or DATA == "AllOrdered":
             Ordered()
-        elif DATA == "6":
-            Mail()
+        elif DATA == "6" or DATA == "AllMail":
+            email()
         elif DATA == "7" or DATA == "exit":
             EXIT()
         else:
