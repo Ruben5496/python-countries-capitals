@@ -12,22 +12,20 @@ COUNTRI = []
 CAP = []
 COUNTRI_AND_CAP = {}
 def email():
-   print "Send email by gmail"
-
-   fromaddr = raw_input("Count from gmail: ")
-   password = getpass.getpass("Password: ")
-   toaddrs = raw_input("to: ")
+    print "Send email by gmail"
+    fromaddr = raw_input("Count from gmail: ")
+    password = getpass.getpass("Password: ")
+    toaddrs = raw_input("to: ")
    #asunto = raw_input("subject, from message: ")
-   body = "Countries\t===========\tCapitals\n"
-   for msg in COUNTRI_AND_CAP:
-        body = body + str(msg).center(20) +str(COUNTRI_AND_CAP[msg]).center(20) + "\n" 
-   msg = MIMEMultipart()
-   msg['From'] = fromaddr #This saves the mail of the sender
-   msg['To'] = toaddrs  #This saves the mail of the receiver
-   msg['Subject'] = "Countries and Capitals"  #This saves the subject
-   msg.attach(MIMEText(body, 'plain')) #This saves the message
-
-   try:
+    body = "Countries===========Capitals\n"
+    for msg in COUNTRI_AND_CAP:
+        body = body +str(msg).center(20)+str(COUNTRI_AND_CAP[msg]).center(30) + "\n" 
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr #This saves the mail of the sender
+    msg['To'] = toaddrs  #This saves the mail of the receiver
+    msg['Subject'] = "Countries and Capitals"  #This saves the subject
+    msg.attach(MIMEText(body, 'plain')) #This saves the message
+    try:
        server = smtplib.SMTP('smtp.gmail.com:587')
        server.starttls()
        server.login(fromaddr,password)
@@ -36,8 +34,8 @@ def email():
        server.quit()
        print "yes"
        raw_input("press enter")
-   except ValueError:
-       print "No se envio nada"
+    except (smtplib.SMTPAuthenticationError):
+       raw_input("No se envio nada\n Press enter to continue")
 
 def Clear():
     os.system("cls")
