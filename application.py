@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import os
 import sys
 import time
@@ -19,23 +19,23 @@ def email():
    #asunto = raw_input("subject, from message: ")
     body = "Countries===========Capitals\n"
     for msg in COUNTRI_AND_CAP:
-        body = body +str(msg).center(20)+str(COUNTRI_AND_CAP[msg]).center(30) + "\n" 
-    msg = MIMEMultipart()
-    msg['From'] = fromaddr #This saves the mail of the sender
-    msg['To'] = toaddrs  #This saves the mail of the receiver
-    msg['Subject'] = "Countries and Capitals"  #This saves the subject
-    msg.attach(MIMEText(body, 'plain')) #This saves the message
+        body = body +str(msg).center(20)+str(COUNTRI_AND_CAP[msg]).center(30) + "\n"
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr #This saves the mail of the sender
+        msg['To'] = toaddrs  #This saves the mail of the receiver
+        msg['Subject'] = "Countries and Capitals"  #This saves the subject
+        msg.attach(MIMEText(body, 'plain')) #This saves the message
     try:
-       server = smtplib.SMTP('smtp.gmail.com:587')
-       server.starttls()
-       server.login(fromaddr,password)
-       text = msg.as_string()
-       server.sendmail(fromaddr, toaddrs, text)
-       server.quit()
-       print "yes"
-       raw_input("press enter")
-    except (smtplib.SMTPAuthenticationError):
-       raw_input("No se envio nada\n Press enter to continue")
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        server.starttls()
+        server.login(fromaddr, password)
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddrs, text)
+        server.quit()
+        print "yes"
+        raw_input("press enter")
+    except smtplib.SMTPAuthenticationError:
+        raw_input("No se envio nada\n Press enter to continue")
 
 def Clear():
     os.system("cls")
@@ -45,18 +45,17 @@ def Ordered():
     print """========================================="""
     print """|-----Countries----|--------Capitals----|"""
     print """|__________________|____________________|"""
-    print """|                  |                    |"""   
+    print """|                  |                    |"""
     ordered = OrderedDict(sorted(COUNTRI_AND_CAP.items(), key=lambda x: x[1:]))
     for key, value in ordered.items():
-       print key.center(20) + value.center(10)
-    raw_input("Press Enter to Continue")    
+        print key.center(20) + value.center(10)
+    raw_input("Press Enter to Continue")
     Clear()
 def CountriesCapitalLists():
     print ">>>Countries and Capital Lists:<<< \n"
-    
     for key in COUNTRI_AND_CAP:
-        print key.center(20), COUNTRI_AND_CAP[key] + "\n" 
-    raw_input("Press enter to Continue")   
+        print key.center(20), COUNTRI_AND_CAP[key] + "\n"
+    raw_input("Press enter to Continue")
     MENU()
     Clear()
 def OnlyCount():
@@ -69,7 +68,7 @@ def OnlyCount():
 def OnlyCaps():
     print "     >>>Capitals<<<\n"
     for i in COUNTRI_AND_CAP:
-        print COUNTRI_AND_CAP[i] + "\n" 
+        print COUNTRI_AND_CAP[i] + "\n"
     raw_input("Press Enter to Continue")
     MENU()
     Clear()
@@ -101,8 +100,8 @@ def COUNTRY():
                 Coun = True
                 raw_input("Press Enter to Continue")
                 break
-    cap= True       
-    while cap == True:        
+    cap = True
+    while cap == True:
         capi = raw_input(">>>Please insert a Capital<<<\n")
         capi = capi.capitalize()
         for char in capi:
@@ -153,5 +152,5 @@ def MENU():
             print "***Fatal Error***\n I don't understand the Instruction"
             raw_input("Press enter to insert another option\n")
             os.system("cls")
-            os.system("clear")    
+            os.system("clear")
 MENU()
