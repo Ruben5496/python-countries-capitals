@@ -92,7 +92,7 @@ def COUNTRY():
     Coun = True
     while Coun == True:
         Count = raw_input(">>>Please insert a Country<<<\n")
-        Count = str(Count).title()
+        Count = str(Count).capitalize()
         for char in Count:
             if  char.isdigit() == False:
                 Coun = False
@@ -104,7 +104,7 @@ def COUNTRY():
     cap= True       
     while cap == True:        
         capi = raw_input(">>>Please insert a Capital<<<\n")
-        capi = capi.title()
+        capi = capi.capitalize()
         for char in capi:
             if  char.isdigit() == False:
                 cap = False
